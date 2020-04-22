@@ -9,7 +9,9 @@ if (argv._.length !== 1 || (!argv.svg && !argv.dxf && !argv.midi)) {
   console.log("Usage: node index.js input.csv --svg output.svg --dxf output.dxf --midi output.midi");
   console.log("You can either supply svg, dxf, midi or all three.");
 } else {
-  parse(argv._[0], musicData => {
+  const inputStream =   fs.createReadStream(argv._[0])
+  
+  parse(inputStream, musicData => {
     if (argv.svg || argv.dxf) {
       const drawing = draw(musicData);
       if(argv.svg){
